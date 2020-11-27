@@ -1,11 +1,25 @@
 <ion-header class="ion-no-border" [translucent]="true">
+
   <ion-item *ngIf="!editMode" class="main-bar" lines="none">
+
     <ion-buttons class="menu-button" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+
     <ion-searchbar class="search-bar" searchIcon="undefined" placeholder="Buscar en tus notas" inputmode="search"
       type="search" (ionChange)="onSearchChange($event)" [debounce]="150" showCancelButton="never"></ion-searchbar>
+
+    <ion-buttons class="menu-button">
+      <ion-button>
+        <ion-icon slot="icon-only" name="grid-outline"></ion-icon>
+      </ion-button>
+      <ion-avatar class="logout-button">
+        <img src="https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg">
+      </ion-avatar>
+    </ion-buttons>
+
   </ion-item>
+
   <ion-toolbar *ngIf="editMode">
     <ion-buttons slot="start">
       <ion-button (click)="editMode = false">
@@ -29,17 +43,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content (ionScrollStart)="isScrolling = true" (ionScrollEnd)="isScrolling = false" scrollEvents="true" [fullscreen]="true">
+<ion-content (ionScrollStart)="isScrolling = true" (ionScrollEnd)="isScrolling = false" scrollEvents="true"
+  [fullscreen]="true">
 
   <!--   <div id="container">
     <strong class="capitalize">{{ folder }}</strong>
     <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI
         Components</a></p>
   </div> -->
-<ion-button (click)="loginGoogle()">
-  TRY
-</ion-button>
-<ion-button (click)="createNote()">Try Create</ion-button>
+  <ion-button (click)="onLoginGoogle()">
+    TRY
+  </ion-button>
+  <ion-button (click)="createNote()">Try Create</ion-button>
   <div class="pins">
     <ion-card long-press (press)="startEditMode()" *ngFor="let item of getNotas()" class="pin">
       <ion-card-header>
@@ -50,7 +65,7 @@
       </ion-card-content>
       <img src="https://img.mobiscroll.com/demos/world-cup-7.jpg">
     </ion-card>
-    
+
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>

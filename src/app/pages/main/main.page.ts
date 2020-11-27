@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Nota } from 'src/app/models/Nota';
+import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
+import { UiService } from 'src/app/services/ui.service';
 
 
 @Component({
@@ -11,54 +13,58 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-  
-  public editMode : boolean = false;
-  public isScrolling : boolean = false;
+
+  public editMode: boolean = false;
+  public isScrolling: boolean = false;
   public section: string;
 
-  getNotas() : Nota[] {
+  getNotas(): Nota[] {
     return this.dataSvc.notas;
   }
 
   constructor(private activatedRoute: ActivatedRoute,
-    private google : GooglePlus,
-    private dataSvc : DataService) {
+    private authSvc: AuthService,
+    private dataSvc: DataService,
+    private router: Router,
+    private uiSvc : UiService) {
 
-     }
+  }
 
   ngOnInit() {
     this.section = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
-  onSearchChange(event){
+  onSearchChange(event) {
     console.log(event);
   }
-  
-  loginGoogle() {
-    this.google.login({})
-    .then( data => {
-      alert("THEN");
-      alert(data);
-      alert("THEN");
-      console.log(data);
-    })
-    .catch( err => {
-      alert("ERROR");
-      alert(err);
-      alert("ERROR");
-      console.log(err)
-    });
+
+  onLoginGoogle() {
+    this.authSvc.loginGoogle()
+      .then(()=>{
+        console.log("Google logged");
+      })
+      .catch( err => {
+        this.uiSvc.presentToast("Hubo un error al intentar enlazar a su cuenta de Google. Pruebe otra vez.", 2000, "danger");
+      })
   }
 
-  createNote(){
+  onLogout() {
+    this.authSvc.logOut()
+      .then(() => {
+
+        console.log("Google signed out");
+      })
+  }
+
+  createNote() {
     this.dataSvc.addNote();
   }
 
-  startEditMode(){
+  startEditMode() {
     console.log(this.isScrolling);
-    if(!this.isScrolling){
+    if (!this.isScrolling) {
       this.editMode = !this.editMode;
-      console.log("edit mode is "+this.editMode)
+      console.log("edit mode is " + this.editMode)
     }
   }
 
