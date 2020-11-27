@@ -8,6 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { SQLite } from '@ionic-native/sqlite/ngx';
+import { LongPressDirective } from './directives/long-press.directive';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +23,8 @@ import { AppRoutingModule } from './app-routing.module';
   providers: [
     StatusBar,
     SplashScreen,
+    GooglePlus,
+    SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

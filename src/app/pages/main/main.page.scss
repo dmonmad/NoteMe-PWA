@@ -1,0 +1,70 @@
+// ---------- ESTILOS SUELTOS ----------
+
+// ########## ESTILOS SUELTOS ##########
+
+
+
+
+// ---------- HEADER/SEARCHBAR ----------
+.main-bar {
+  margin: 16px auto 16px auto;
+  width: 95%;
+  border: 0.5px solid rgb(0, 0, 0);
+  border-radius: 8px;
+  --padding-start: 4px;
+}
+.search-bar {
+  box-shadow: none;
+  --box-shadow: none;
+}
+
+.menu-button {
+  margin-right: 0px;
+}
+// ########## HEADER/SEARCHBAR ##########
+
+
+
+
+
+
+// ---------- MASONRY ----------
+.pins {
+  column-count: 2;
+  padding: 7px;
+}
+
+.pin {
+  display: inline-block;
+  margin: 1px;
+/*   padding: 5px; */
+}
+// ########## MASONRY ##########
+
+
+
+
+
+/* #container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+} */

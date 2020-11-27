@@ -1,0 +1,60 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-item *ngIf="!editMode" class="main-bar" lines="none">
+    <ion-buttons class="menu-button" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar class="search-bar" searchIcon="undefined" placeholder="Buscar en tus notas" inputmode="search"
+      type="search" (ionChange)="onSearchChange($event)" [debounce]="150" showCancelButton="never"></ion-searchbar>
+  </ion-item>
+  <ion-toolbar *ngIf="editMode">
+    <ion-buttons slot="start">
+      <ion-button (click)="editMode = false">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+      <span>
+        2
+      </span>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="flag-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="color-palette-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content (ionScrollStart)="isScrolling = true" (ionScrollEnd)="isScrolling = false" scrollEvents="true" [fullscreen]="true">
+
+  <!--   <div id="container">
+    <strong class="capitalize">{{ folder }}</strong>
+    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI
+        Components</a></p>
+  </div> -->
+<ion-button (click)="loginGoogle()">
+  TRY
+</ion-button>
+<ion-button (click)="createNote()">Try Create</ion-button>
+  <div class="pins">
+    <ion-card long-press (press)="startEditMode()" *ngFor="let item of getNotas()" class="pin">
+      <ion-card-header>
+        {{item.titulo}}
+      </ion-card-header>
+      <ion-card-content>
+        {{item.titulo}}
+      </ion-card-content>
+      <img src="https://img.mobiscroll.com/demos/world-cup-7.jpg">
+    </ion-card>
+    
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

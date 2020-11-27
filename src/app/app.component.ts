@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import * as firebase from 'firebase';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -13,19 +16,19 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
+      title: 'Notes',
+      url: '/main/Inbox',
+      icon: 'documents-outline'
     },
     {
       title: 'Outbox',
       url: '/folder/Outbox',
-      icon: 'paper-plane'
+      icon: 'file-tray-full-outline'
     },
     {
       title: 'Favorites',
       url: '/folder/Favorites',
-      icon: 'heart'
+      icon: 'documents-outline'
     },
     {
       title: 'Archived',
@@ -56,8 +59,13 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
+      this.splashScreen.hide();      
+      this.statusBar.overlaysWebView(false);
+
+    });  
+    firebase.default.initializeApp(environment.firebaseConfig);
+    
+
   }
 
   ngOnInit() {
