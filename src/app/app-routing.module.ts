@@ -14,6 +14,14 @@ const routes: Routes = [
   {
     path: 'note',
     loadChildren: () => import('./pages/note/note.module').then( m => m.NotePageModule)
+  },
+  {
+    path: 'colorselector',
+    loadChildren: () => import('./modals/colorselector/colorselector.module').then( m => m.ColorselectorPageModule)
+  },
+  {
+    path: 'crearnota',
+    loadChildren: () => import('./modals/crearnota/crearnota.module').then( m => m.CrearnotaPageModule)
   }
 ];
 

@@ -1,0 +1,11 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let item of colors" >
+        <ion-avatar (click)="changeColor(item)" class="color-circle" [style.background]="item">
+
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

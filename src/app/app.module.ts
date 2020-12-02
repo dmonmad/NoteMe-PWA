@@ -10,10 +10,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
-import { LongPressDirective } from './directives/long-press.directive';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +24,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFirestoreModule.enablePersistence()
+
   ],
   providers: [
     StatusBar,

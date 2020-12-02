@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  
+  // ------------- FIREBASE CFG
   firebaseConfig : {
     apiKey: "AIzaSyCZylr_QYicByL8_DSawlewUILJtSGh7b0",
     authDomain: "notasv3.firebaseapp.com",
@@ -13,7 +15,9 @@ export const environment = {
     messagingSenderId: "712062287369",
     appId: "1:712062287369:web:ee0339647931ace445c2d8",
     measurementId: "G-MQK34DV5EH"
-  }
+  },
+  dbName: 'notas/'
+
 };
 
 /*

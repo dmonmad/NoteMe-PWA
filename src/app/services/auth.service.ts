@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
-import { Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 import * as firebase from 'firebase'
@@ -10,8 +9,22 @@ import * as firebase from 'firebase'
 })
 export class AuthService {
 
+  static isLoggedIn: boolean = false;
+
   constructor(private AFauth: AngularFireAuth,
-     private google: GooglePlus) { }
+    private google: GooglePlus) {
+
+    this.AFauth.authState.subscribe(res => {
+      if (res && res.uid)
+        AuthService.isLoggedIn = true;
+      else
+        AuthService.isLoggedIn = false;
+    },
+      err => {
+        console.log(err)
+      })
+
+  }
 
 
   loginGoogle() {

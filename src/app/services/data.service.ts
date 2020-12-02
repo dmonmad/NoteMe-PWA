@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import * as firebase from 'Firebase';
+import { environment } from 'src/environments/environment';
 import { Nota } from '../models/Nota';
 
 
@@ -8,35 +10,51 @@ import { Nota } from '../models/Nota';
 })
 export class DataService {
 
-  notas: Nota[] = [];
-  id : number = 0;
-  ref;
+  conexionColeccion: AngularFirestoreCollection<Nota>;
 
-  constructor() {
-    this.ref = firebase.default.database().ref('notas/');
-    this.ref.on('value', resp => {
-      this.notas = this.snapshotToArray(resp);
-    });
+  constructor(private firestore: AngularFirestore) {
+    this.conexionColeccion = this.firestore.collection(environment.dbName);
   }
 
-  addNote(note?: Nota) {
-    let newInfo = firebase.default.database().ref('notas/').push();
-    let nota: Nota = { titulo: "Esto es una prueba "+this.id.toString(),
-     usuarios: ["me"] 
-    };
-    newInfo.set(nota);
-    this.id++;
+  getFamilyMembers() {
+    return firebase.default.firestore().collection('contacts').where("isFamily", "==", true).get();
   }
 
-  snapshotToArray(resp) {
-    let returnArr = [];
+  async addNote(note: Nota) : Promise<any> {
 
-    resp.forEach(childSnapshot => {
-      let item = childSnapshot.val();
-      item.key = childSnapshot.key;
-      returnArr.push(item);
-    });
-
-    return returnArr;
+    return this.conexionColeccion.add(note);
+    /*     firebase.default.database().ref(environment.dbName).push(nota); */
   }
+
+  async editNote(note: Nota): Promise<any> {
+    let updatedNota: Nota = {
+      titulo: note.titulo,
+      color: note.color,
+      descripcion: note.descripcion,
+      imagenes: note.imagenes,
+      usuarios: note.usuarios
+    }
+    return this.conexionColeccion.doc(note.id).update(updatedNota);
+  }
+
+  read_notes() {
+    return this.conexionColeccion.snapshotChanges();
+  }
+
+  async deleteNote(note: Nota): Promise<any> {
+    console.log(note);
+    let removed: any = false;
+    console.log(note.id);
+    await this.conexionColeccion.doc(note.id).delete()
+      .then(result => {
+        removed = true;
+      })
+      .catch(err => {
+        console.log(err);
+        removed = err;
+      })
+    return removed;
+  }
+
+
 }

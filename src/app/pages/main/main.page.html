@@ -26,15 +26,18 @@
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
       <span>
-        2
+        {{selected.length}}
       </span>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button>
         <ion-icon slot="icon-only" name="flag-outline"></ion-icon>
       </ion-button>
-      <ion-button>
+      <ion-button (click)="openColorPopover($event)">
         <ion-icon slot="icon-only" name="color-palette-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="deleteArrayOfNotes()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
       <ion-button>
         <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
@@ -51,25 +54,46 @@
     <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI
         Components</a></p>
   </div> -->
-  <ion-button (click)="onLoginGoogle()">
+  <!-- <ion-button (click)="onLoginGoogle()">
     TRY
-  </ion-button>
-  <ion-button (click)="createNote()">Try Create</ion-button>
+  </ion-button>-->
+  <ion-button (click)="createNote()">Try Create</ion-button> 
   <div class="pins">
-    <ion-card long-press (press)="startEditMode()" *ngFor="let item of getNotas()" class="pin">
-      <ion-card-header>
-        {{item.titulo}}
+
+    <ion-card *ngFor="let item of notas" (click)="selectNote(item)" long-press (press)="startEditMode(item)"
+      [class.selected]="isSelected(item)" [style.--background]="item.color" class="pin">
+      <div *ngIf="item.imagenes">
+        <img *ngFor="let foto of item.imagenes" src="{{'data:image/png;base64,'+ foto}}">
+      </div>
+      <ion-card-header class="card-header">
+        <ion-card-title>
+          {{item.titulo}}
+        </ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        {{item.titulo}}
+      <ion-card-content class="card-content">
+        {{item.descripcion}}
       </ion-card-content>
-      <img src="https://img.mobiscroll.com/demos/world-cup-7.jpg">
     </ion-card>
 
   </div>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button color="light">
+      <ion-icon name="expand"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button>
+        <ion-icon name="pencil"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="end">
+      <ion-fab-button>
+        <ion-icon name="mic"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 </ion-content>

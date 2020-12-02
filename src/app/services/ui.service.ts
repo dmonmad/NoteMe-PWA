@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, PopoverController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export class UiService {
   constructor(public loading: LoadingController,
     public modal: ModalController,
     public toast: ToastController,
-    public alertController: AlertController) { }
+    public alertController: AlertController,
+    public popover : PopoverController) { }
 
   async showLoading(msg?: string) {
     if (this.miLoading) {
@@ -60,7 +61,7 @@ export class UiService {
     this.toast.dismiss();
   }
 
-  async showModal(opts): Promise<any> {
+  async showModal(opts, fullscreen): Promise<any> {
     let obj: any;
     const modal = await this.modal.create(opts);
     modal.present();
@@ -103,7 +104,6 @@ export class UiService {
   }
 
   async presentAlert(header: string, message: string, opcionSi: string = 'Aceptar') {
-    let sol: boolean = false;
     const alert = await this.alertController.create({
       header: header,
       message: message,
@@ -119,6 +119,19 @@ export class UiService {
     });
     await alert.present();
     return alert.onDidDismiss();
+  }
+
+  async showPopover(opts){
+    let obj: any;
+    const modal = await this.popover.create(opts);
+
+    modal.present();
+    await modal.onWillDismiss().then(dataReturned => {
+      // trigger when about to close the modal
+      obj = dataReturned.data;
+
+    });
+    return obj;
   }
 
 }
