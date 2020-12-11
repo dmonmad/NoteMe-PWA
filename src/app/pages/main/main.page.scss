@@ -8,6 +8,9 @@
   box-shadow: none;
 }
 
+ion-toolbar {
+  padding-top: 0px !important;
+}
 
 
 // #################################
@@ -39,11 +42,15 @@
 
 // ---------- HEADER/SEARCHBAR ----------
 .main-bar {
-  margin: 16px auto 16px auto;
+  margin: 4px auto 4px auto;
   width: 95%;
-  border: 0.5px solid rgb(0, 0, 0);
+  border: 0.5px solid grey;
   border-radius: 8px;
   --padding-start: 4px;
+}
+
+.main-toolbar {
+  margin-bottom: 11px;
 }
 
 .search-bar {

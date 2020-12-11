@@ -64,7 +64,6 @@ export class AppComponent implements OnInit {
 
     });  
     firebase.default.initializeApp(environment.firebaseConfig);
-    
 
   }
 

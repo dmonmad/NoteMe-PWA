@@ -8,22 +8,27 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { SQLite } from '@ionic-native/sqlite/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { SQLite } from '@ionic-native/sqlite/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({ _forceStatusbarPadding: true }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     AngularFirestoreModule.enablePersistence()
 
   ],
@@ -32,8 +37,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     SplashScreen,
     GooglePlus,
     SQLite,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

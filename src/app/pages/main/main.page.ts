@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { ColorselectorPage } from 'src/app/modals/colorselector/colorselector.page';
+import { CrearnotaPage } from 'src/app/modals/crearnota/crearnota.page';
 import { Nota } from 'src/app/models/Nota';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
@@ -26,7 +27,6 @@ export class MainPage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private authSvc: AuthService,
     private dataSvc: DataService,
-    private router: Router,
     private uiSvc: UiService) {
 
   }
@@ -39,6 +39,7 @@ export class MainPage implements OnInit {
       this.notas = data.map(e => {
         let n: Nota = {
           id: e.payload.doc.id,
+          pinned: e.payload.doc.data()['pinned'],
           color: e.payload.doc.data()['color'],
           descripcion: e.payload.doc.data()['descripcion'],
           imagenes: e.payload.doc.data()['imagenes'],
@@ -74,16 +75,17 @@ export class MainPage implements OnInit {
       })
   }
 
-  createNote() {
-    let nota: Nota =
-    {
-      titulo: "Esto es una prueba ",
-      color: "#fff",
-      descripcion: "Desc de prueba",
-      usuarios: [],
-      imagenes: [],
-    };
-    this.dataSvc.addNote(nota);
+  openNoteModal(item? : Nota) {
+    console.log("openNoteModal")
+    console.log(item);
+    console.log(item != null && item != undefined ? item : 'null')
+    this.uiSvc.showModal({
+      component: CrearnotaPage,
+
+      componentProps: {
+        nota: item != null && item != undefined ? item : null
+      }
+    })
   }
 
   deleteArrayOfNotes() {
@@ -114,7 +116,7 @@ export class MainPage implements OnInit {
         this.selected.splice(this.selected.indexOf(item), 1)
 
         if (this.selected.length == 0) {
-          this.editMode = false;
+          this.stopEditMode();
         }
 
       }
@@ -123,9 +125,14 @@ export class MainPage implements OnInit {
       }
 
     } else {
-
+      this.openNoteModal(item);
     }
 
+  }
+
+  stopEditMode(){
+    this.editMode = false;
+    this.selected = [];
   }
 
   startEditMode(item: Nota) {
@@ -141,20 +148,6 @@ export class MainPage implements OnInit {
 
   isSelected(item: Nota) {
     return this.selected.includes(item);
-  }
-
-  openNoteModal(item?: Nota) {
-    this.uiSvc.showPopover({
-      component: ColorselectorPage,
-      componentProps: {
-        nota: item != null && item != undefined ? item : null
-      }
-    })
-      .then(() => {
-        this.editMode = false;
-        this.selected = [];
-      })
-      .catch(error => console.error(error))
   }
 
   openColorPopover(ev, item?) {

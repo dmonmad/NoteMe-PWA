@@ -61,7 +61,7 @@ export class UiService {
     this.toast.dismiss();
   }
 
-  async showModal(opts, fullscreen): Promise<any> {
+  async showModal(opts): Promise<any> {
     let obj: any;
     const modal = await this.modal.create(opts);
     modal.present();

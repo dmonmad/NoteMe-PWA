@@ -20,15 +20,16 @@ export class DataService {
     return firebase.default.firestore().collection('contacts').where("isFamily", "==", true).get();
   }
 
-  async addNote(note: Nota) : Promise<any> {
+  addNote(note: Nota) : Promise<any> {
 
     return this.conexionColeccion.add(note);
     /*     firebase.default.database().ref(environment.dbName).push(nota); */
   }
 
-  async editNote(note: Nota): Promise<any> {
+  editNote(note: Nota): Promise<any> {
     let updatedNota: Nota = {
       titulo: note.titulo,
+      pinned: false,
       color: note.color,
       descripcion: note.descripcion,
       imagenes: note.imagenes,
@@ -55,6 +56,4 @@ export class DataService {
       })
     return removed;
   }
-
-
 }

@@ -1,9 +1,58 @@
-<ion-header>
+<ion-header class="no-background">
   <ion-toolbar>
-    <ion-title>crearnota</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="main"></ion-back-button>
+    </ion-buttons>
+    <!--     <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="pin-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <div *ngFor="let foto of nota.imagenes" class="modalImageCont">
+    <img src="{{foto}}">
+    <div>
+      <ion-button (click)="deletePic(foto)" class="deleteButton" color="dark" fill="solid">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-item class="note-title" lines="inset">
+    <ion-input placeholder="Título" type="text"></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-textarea placeholder="Contenido" autoGrow="true" rows="20" cols="20"></ion-textarea>
+  </ion-item>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="alarm"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="person-add"></ion-icon>
+      </ion-button>
+      <ion-button (click)="addImageToNota()">
+        <ion-icon slot="icon-only" name="image"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="color-palette"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openActions()">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-footer>
