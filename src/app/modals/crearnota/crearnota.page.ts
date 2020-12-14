@@ -16,7 +16,7 @@ export class CrearnotaPage implements OnInit {
 
   sub: Subscription;
 
-  nota: Nota;
+  notaModal: Nota;
 
   constructor(private platform: Platform,
     private modalCtrl: ModalController,
@@ -24,16 +24,19 @@ export class CrearnotaPage implements OnInit {
     private notaSvc: NotaService,
     private navParams: NavParams) {
     this.sub = this.platform.backButton.subscribeWithPriority(102, () => {
-      this.modalCtrl.dismiss();
+      this.modalCtrl.dismiss(this.notaModal);
     });
 
     let d = this.navParams.get('nota');
-    console.log(d);
-    if (d != null) {
-      this.nota = d;
+    console.log(this.notaModal);
+    if (d != null && d != undefined) {
+      console.log("D ES NULL Y ENTRA AHORA")
+      console.log(d);
+      this.notaModal = d;
+      console.log(this.notaModal);
     }
     else {
-      this.nota = {
+      this.notaModal = {
         titulo: "",
         color: "#fff",
         descripcion: "",
@@ -41,23 +44,30 @@ export class CrearnotaPage implements OnInit {
         usuarios: [],
         imagenes: [],
       };
+      console.log(this.notaModal);
     }
+    console.log(this.notaModal);
   }
 
   ngOnInit() {
+    console.log(this.notaModal);
   }
 
   ionViewDidLeave() {
+    console.log(this.notaModal);
     this.sub.unsubscribe();
   }
 
   async addImageToNota() {
     console.log("ADDIMAGETONOTA")
+    console.log(this.notaModal);
     this.notaSvc.getBase64Image(PictureSourceType.PHOTOLIBRARY)
       .then(data => {
-        this.nota.imagenes.push('data:image/jpeg;base64,'+data);
+        console.log(this.notaModal);
+        this.notaModal.imagenes.push('data:image/jpeg;base64,' + data);
       })
       .catch(err => {
+        console.log(this.notaModal);
         console.log(err);
       })
   }
@@ -71,7 +81,17 @@ export class CrearnotaPage implements OnInit {
       showBackdrop: true,
 
     });
+    console.log(this.notaModal);
     await actionSheet.present();
+    console.log(this.notaModal);
+  }
+
+  public deletePic(foto: string) {
+    console.log(this.notaModal);
+    const index: number = this.notaModal.imagenes.indexOf(foto);
+    if (index !== -1) {
+      this.notaModal.imagenes.splice(index, 1);
+    }
   }
 
   updateNota() {

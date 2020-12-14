@@ -12,14 +12,18 @@ ion-toolbar {
     background-image: none !important;
 }
 
-.modalImageCont {
+.imageModal {
     position: relative;
     width: 100%;
 }
 
-.modalImageCont .img{
+.imageModal .img {
     width: 100%;
     height: auto;
+}
+
+.imagesContainer {
+    
 }
 
 .deleteButton {

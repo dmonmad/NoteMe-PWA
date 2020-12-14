@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AlertController, LoadingController, ModalController, PopoverController, ToastController } from '@ionic/angular';
+import { Nota } from '../models/Nota';
 
 @Injectable({
   providedIn: 'root'
@@ -61,8 +62,8 @@ export class UiService {
     this.toast.dismiss();
   }
 
-  async showModal(opts): Promise<any> {
-    let obj: any;
+  async showModal(opts): Promise<Nota> {
+    let obj: Nota;
     const modal = await this.modal.create(opts);
     modal.present();
     await modal.onWillDismiss().then(dataReturned => {

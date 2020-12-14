@@ -35,7 +35,6 @@ export class MainPage implements OnInit {
     this.section = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.dataSvc.read_notes().subscribe(data => {
-      console.log(data);
       this.notas = data.map(e => {
         let n: Nota = {
           id: e.payload.doc.id,
@@ -75,10 +74,7 @@ export class MainPage implements OnInit {
       })
   }
 
-  openNoteModal(item? : Nota) {
-    console.log("openNoteModal")
-    console.log(item);
-    console.log(item != null && item != undefined ? item : 'null')
+  openNoteModal(item?: Nota) {
     this.uiSvc.showModal({
       component: CrearnotaPage,
 
@@ -86,19 +82,27 @@ export class MainPage implements OnInit {
         nota: item != null && item != undefined ? item : null
       }
     })
+      .then(data => {
+        console.log(data);
+        if (data.id != null || data.id != undefined)
+          this.dataSvc.editNote(data)
+        else
+          this.dataSvc.addNote(data)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
   }
 
   deleteArrayOfNotes() {
     if (this.selected.length > 0) {
-      console.log("Entra");
       for (let i = 0; i < this.selected.length; i++) {
-        console.log("Entra nota");
         this.dataSvc.deleteNote(this.selected[i])
           .then(() => {
             console.log("Borrada then");
           })
           .catch(err => {
-            console.log("NO BORRADA CATCH")
             console.log(err);
             this.uiSvc.presentToast("Error al eliminar la nota", 2000, "danger");
           })
@@ -130,7 +134,7 @@ export class MainPage implements OnInit {
 
   }
 
-  stopEditMode(){
+  stopEditMode() {
     this.editMode = false;
     this.selected = [];
   }

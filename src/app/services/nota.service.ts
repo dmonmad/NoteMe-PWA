@@ -17,7 +17,7 @@ export class NotaService {
       destinationType: DestinationType.DATA_URL,
       allowEdit: true,
       cameraDirection: Direction.BACK,
-      correctOrientation: false,
+      correctOrientation: true,
       saveToPhotoAlbum: true,
     }
     console.log("beforePicture")

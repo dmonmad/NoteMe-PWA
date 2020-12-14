@@ -1,5 +1,5 @@
 <ion-header class="no-background">
-  <ion-toolbar>
+  <ion-toolbar [style.--background]="notaModal.color">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="main"></ion-back-button>
     </ion-buttons>
@@ -11,27 +11,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [style.--background]="notaModal.color">
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let foto of notaModal.imagenes" class="imageModal">
 
-  <div *ngFor="let foto of nota.imagenes" class="modalImageCont">
-    <img src="{{foto}}">
-    <div>
-      <ion-button (click)="deletePic(foto)" class="deleteButton" color="dark" fill="solid">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-button>
-    </div>
-  </div>
+        <img src="{{foto}}">
+        <div>
+          <ion-button (click)="deletePic(foto)" class="deleteButton" color="dark" fill="solid">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <ion-item class="note-title" lines="inset">
-    <ion-input placeholder="Título" type="text"></ion-input>
+  <ion-item [style.--background]="notaModal.color" class="note-title" lines="inset">
+    <ion-input [(ngModel)]="notaModal.titulo" placeholder="Título" type="text"></ion-input>
   </ion-item>
-  <ion-item lines="none">
-    <ion-textarea placeholder="Contenido" autoGrow="true" rows="20" cols="20"></ion-textarea>
+  <ion-item [style.--background]="notaModal.color" lines="none">
+    <ion-textarea [(ngModel)]="notaModal.descripcion" placeholder="Contenido" autoGrow="true"></ion-textarea>
   </ion-item>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar [style.--background]="notaModal.color">
 
     <ion-buttons slot="start">
       <ion-button>
