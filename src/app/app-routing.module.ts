@@ -4,16 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'main/0',
+    redirectTo: 'main',
     pathMatch: 'full'
   },
   {
-    path: 'main/:noteid',
+    path: 'main',
     loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule)
-  },
-  {
-    path: 'note',
-    loadChildren: () => import('./pages/note/note.module').then( m => m.NotePageModule)
   },
   {
     path: 'colorselector',
@@ -22,6 +18,10 @@ const routes: Routes = [
   {
     path: 'crearnota',
     loadChildren: () => import('./modals/crearnota/crearnota.module').then( m => m.CrearnotaPageModule)
+  },
+  {
+    path: 'editarnota',
+    loadChildren: () => import('./modals/editarnota/editarnota.module').then( m => m.EditarnotaPageModule)
   }
 ];
 

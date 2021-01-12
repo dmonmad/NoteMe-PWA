@@ -55,9 +55,14 @@
 
     <ion-card *ngFor="let item of notas" (click)="selectNote(item)" long-press (press)="startEditMode(item)"
       [class.selected]="isSelected(item)" [style.--background]="item.color" class="pin">
-      <div *ngIf="item.imagenes">
-        <img *ngFor="let foto of item.imagenes" src="{{foto}}">
-      </div>
+      <ion-grid class="ion-no-padding" *ngIf="item.imagenes.length > 0">
+        <ion-row>
+          <ion-col size="4" *ngFor="let foto of item.imagenes" class="imageModal">
+            <img src="{{foto}}">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
       <ion-card-header class="card-header">
         <ion-card-title>
           {{item.titulo}}

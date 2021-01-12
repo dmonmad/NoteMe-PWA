@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { ColorselectorPage } from 'src/app/modals/colorselector/colorselector.page';
 import { CrearnotaPage } from 'src/app/modals/crearnota/crearnota.page';
+import { EditarnotaPage } from 'src/app/modals/editarnota/editarnota.page';
 import { Nota } from 'src/app/models/Nota';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
@@ -32,7 +33,7 @@ export class MainPage implements OnInit {
   }
 
   ngOnInit() {
-    this.section = this.activatedRoute.snapshot.paramMap.get('id');
+    //this.section = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.dataSvc.read_notes().subscribe(data => {
       this.notas = data.map(e => {
@@ -74,20 +75,30 @@ export class MainPage implements OnInit {
       })
   }
 
-  openNoteModal(item?: Nota) {
+  editNoteModal(item: Nota) {
     this.uiSvc.showModal({
-      component: CrearnotaPage,
+      component: EditarnotaPage,
 
       componentProps: {
-        nota: item != null && item != undefined ? item : null
+        nota: item
       }
     })
       .then(data => {
         console.log(data);
-        if (data.id != null || data.id != undefined)
-          this.dataSvc.editNote(data)
-        else
-          this.dataSvc.addNote(data)
+        this.dataSvc.editNote(data)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  openNoteModal() {
+    this.uiSvc.showModal({
+      component: CrearnotaPage,
+    })
+      .then(data => {
+        console.log(data);
+        this.dataSvc.addNote(data)
       })
       .catch(err => {
         console.log(err);
@@ -129,7 +140,7 @@ export class MainPage implements OnInit {
       }
 
     } else {
-      this.openNoteModal(item);
+      this.editNoteModal(item);
     }
 
   }

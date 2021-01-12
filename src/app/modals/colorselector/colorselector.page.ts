@@ -36,16 +36,11 @@ export class ColorselectorPage implements OnInit {
   }
 
   changeColor(color: string) {
-    console.log("CHANGE COLOR");    
-    console.log(this.notaNuevoColor);
-    console.log(this.notas);
 
     if (this.notaNuevoColor) {
-      console.log("Entra THIS.NOTA CHANGECOLOR")
       this.notaNuevoColor.color = color;
       this.dataSvc.editNote(this.notaNuevoColor);
     } else if (this.notas && this.notas.length > 0) {
-      console.log("Entra THIS.NOTASSSSSS CHANGECOLOR")
 
       for (let i = 0; i < this.notas.length; i++) {
         this.notas[i].color = color;

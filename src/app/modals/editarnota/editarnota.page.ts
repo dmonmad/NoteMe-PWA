@@ -12,11 +12,12 @@ import { UiService } from 'src/app/services/ui.service';
 import { ColorselectorPage } from '../colorselector/colorselector.page';
 
 @Component({
-  selector: 'app-crearnota',
-  templateUrl: './crearnota.page.html',
-  styleUrls: ['./crearnota.page.scss'],
+  selector: 'app-editarnota',
+  templateUrl: './editarnota.page.html',
+  styleUrls: ['./editarnota.page.scss'],
 })
-export class CrearnotaPage implements OnInit {
+export class EditarnotaPage implements OnInit {
+
 
   sub: Subscription;
 
@@ -27,19 +28,13 @@ export class CrearnotaPage implements OnInit {
     private popoverCtrl: PopoverController,
     private dataSvc: DataService,
     private storage: AngularFireStorage,
-    private uiSvc: UiService) {
+    private uiSvc: UiService,
+    private navParams: NavParams) {
     this.sub = this.platform.backButton.subscribeWithPriority(102, () => {
       this.dismissModal();
     });
 
-    this.notaModal = {
-      titulo: "",
-      color: "#fff",
-      descripcion: "",
-      pinned: false,
-      usuarios: [],
-      imagenes: [],
-    };
+    this.notaModal = this.navParams.get('nota');
 
   }
 
@@ -53,16 +48,17 @@ export class CrearnotaPage implements OnInit {
   }
 
   dismissModal() {
+    console.log(this.notaModal);
     this.modalCtrl.dismiss(this.notaModal);
   }
 
   async addImageToNota(event: FileList) {
-    console.log("ADDIMAGETONOTA")
     console.log(event);
     console.log(event.item(0));
 
     const file = event.item(0);
-
+    console.log(file);
+    console.log(file.type);
     if (file.type.split('/')[0] !== 'image') {
       console.error('unsupported file type :( ')
       return;
@@ -127,7 +123,9 @@ export class CrearnotaPage implements OnInit {
       showBackdrop: true,
 
     });
+    console.log(this.notaModal);
     await actionSheet.present();
+    console.log(this.notaModal);
   }
 
   public deletePic(foto: string) {

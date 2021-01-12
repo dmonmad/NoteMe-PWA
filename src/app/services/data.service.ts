@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import * as firebase from 'Firebase';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Nota } from '../models/Nota';
 
@@ -12,7 +15,7 @@ export class DataService {
 
   conexionColeccion: AngularFirestoreCollection<Nota>;
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore, private storage : AngularFireStorage) {
     this.conexionColeccion = this.firestore.collection(environment.dbName);
   }
 
@@ -20,16 +23,14 @@ export class DataService {
     return firebase.default.firestore().collection('contacts').where("isFamily", "==", true).get();
   }
 
-  addNote(note: Nota) : Promise<any> {
-
+  addNote(note: Nota) : Promise<DocumentReference<Nota>> {
     return this.conexionColeccion.add(note);
-    /*     firebase.default.database().ref(environment.dbName).push(nota); */
   }
 
-  editNote(note: Nota): Promise<any> {
+  editNote(note: Nota): Promise<void> {
     let updatedNota: Nota = {
       titulo: note.titulo,
-      pinned: false,
+      pinned: note.pinned,
       color: note.color,
       descripcion: note.descripcion,
       imagenes: note.imagenes,
@@ -38,22 +39,23 @@ export class DataService {
     return this.conexionColeccion.doc(note.id).update(updatedNota);
   }
 
-  read_notes() {
+  getNoteById(note : Nota) : AngularFirestoreDocument<Nota> {
+    return this.conexionColeccion.doc(note.id);
+  }
+
+  read_notes() : Observable<DocumentChangeAction<Nota>[]>{
     return this.conexionColeccion.snapshotChanges();
   }
 
-  async deleteNote(note: Nota): Promise<any> {
-    console.log(note);
-    let removed: any = false;
-    console.log(note.id);
-    await this.conexionColeccion.doc(note.id).delete()
-      .then(result => {
-        removed = true;
-      })
-      .catch(err => {
-        console.log(err);
-        removed = err;
-      })
-    return removed;
+  deleteNote(note: Nota): Promise<void> {
+    return this.conexionColeccion.doc(note.id).delete();
+  }
+
+  addImageToNota(path, file) : AngularFireUploadTask {
+    return this.storage.upload(path, file);
+  }
+
+  removeImageFromNota(foto: string) : Observable<any>{
+    return this.storage.refFromURL(foto).delete();    
   }
 }

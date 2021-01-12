@@ -24,4 +24,8 @@ export class NotaService {
     return this.camera.getPicture(camOpt);
   }
 
+  public static GenImageRef(name){
+    return 'images/'+name+'_'+new Date().getTime();
+  }
+
 }
