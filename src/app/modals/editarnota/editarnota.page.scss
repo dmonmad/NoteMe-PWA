@@ -36,3 +36,8 @@ ion-toolbar {
     cursor: pointer;
     text-align: center;
 }
+
+.hideInput {
+    position: absolute;
+    bottom: -100000000px;
+}

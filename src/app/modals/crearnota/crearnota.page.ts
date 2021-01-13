@@ -52,7 +52,7 @@ export class CrearnotaPage implements OnInit {
     this.sub.unsubscribe();
   }
 
-  dismissModal() {
+  public dismissModal() {
     this.modalCtrl.dismiss(this.notaModal);
   }
 

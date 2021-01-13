@@ -47,7 +47,7 @@ export class EditarnotaPage implements OnInit {
     this.sub.unsubscribe();
   }
 
-  dismissModal() {
+  public dismissModal() {
     console.log(this.notaModal);
     this.modalCtrl.dismiss(this.notaModal);
   }
