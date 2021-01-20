@@ -13,6 +13,8 @@ import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
@@ -29,7 +31,10 @@ import { Camera } from '@ionic-native/camera/ngx';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    AngularFireAuthModule,
+    AngularFireAuthGuardModule,
+    
 
   ],
   providers: [

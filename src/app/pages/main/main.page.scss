@@ -36,6 +36,22 @@ ion-toolbar {
   white-space: pre-wrap;
 }
 
+.center-row {
+  color: #80868b;
+  font-size: 1rem;
+  position: absolute;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+  display: flex !important;
+  align-content: center !important;
+  align-items: center !important;
+
+  ion-label {
+    margin-left: 5%;
+  }
+}
+
 // ##################################
 
 
@@ -86,6 +102,7 @@ ion-toolbar {
   max-width: 100%;
   display: inline-block;
   margin: 0px 0px 4px 0px;
+  min-height: 100px;
   /*   padding: 5px; */
 }
 
@@ -121,4 +138,11 @@ ion-toolbar {
 
 .selected {
   box-shadow: inset 0 0 0 2px #202124 !important;
+}
+
+.note-img {
+  max-width: 100%;
+  border: 0;
+  height: 135px;
+  width: auto;
 }

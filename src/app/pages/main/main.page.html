@@ -50,7 +50,9 @@
   [fullscreen]="true">
 
   <!--   <ion-button (click)="createNote()">Try Create</ion-button>  -->
-
+<ion-button (click)="login()">
+xD
+</ion-button>
   <div class="pins">
 
     <ion-card *ngFor="let item of notas" (click)="selectNote(item)" long-press (press)="startEditMode(item)"
@@ -58,17 +60,21 @@
       <ion-grid class="ion-no-padding" *ngIf="item.imagenes.length > 0">
         <ion-row>
           <ion-col size="4" *ngFor="let foto of item.imagenes" class="imageModal">
-            <img src="{{foto}}">
+            <img class="note-img" src="{{foto}}">
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <ion-card-header class="card-header">
+      <div *ngIf="item.imagenes.length == 0 && item.titulo == '' && item.descripcion == ''" class="center-row">
+        <ion-label>Nota vacía</ion-label>
+      </div>
+
+      <ion-card-header *ngIf="item.titulo != '' || item.descripcion != ''" class="card-header">
         <ion-card-title>
           {{item.titulo}}
         </ion-card-title>
       </ion-card-header>
-      <ion-card-content class="card-content">
+      <ion-card-content *ngIf="item.titulo != '' || item.descripcion != ''" class="card-content">
         {{item.descripcion}}
       </ion-card-content>
     </ion-card>

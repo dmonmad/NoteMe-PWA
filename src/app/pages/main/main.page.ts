@@ -68,11 +68,19 @@ export class MainPage implements OnInit {
   }
 
   onLogout() {
-    this.authSvc.logOut()
-      .then(() => {
 
-        console.log("Google signed out");
-      })
+  }
+
+  async login() {
+    try {
+      const user = await this.authSvc.loginGoogle();
+
+      if (user) {
+        console.log(user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   editNoteModal(item: Nota) {

@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase';
 import { environment } from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -46,12 +47,12 @@ export class AppComponent implements OnInit {
       icon: 'warning'
     }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private fAuth : AngularFireAuth
   ) {
     this.initializeApp();
   }
@@ -61,7 +62,7 @@ export class AppComponent implements OnInit {
       this.statusBar.styleDefault();
       this.splashScreen.hide();      
       this.statusBar.overlaysWebView(false);
-
+      
     });  
     firebase.default.initializeApp(environment.firebaseConfig);
 

@@ -15,7 +15,7 @@
 
   <ion-grid class="ion-no-padding">
     <ion-row>
-      <ion-col size="4" *ngFor="let foto of notaModal.imagenes" class="imageModal">
+      <ion-col size="12" *ngFor="let foto of notaModal.imagenes">
         <img src="{{foto}}">
         <ion-button (click)="deletePic(foto)" class="deleteButton" color="dark" fill="solid">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
