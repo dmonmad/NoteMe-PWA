@@ -25,6 +25,8 @@ export class MainPage implements OnInit {
   public isScrolling: boolean = false;
   public section: string;
 
+  public result : string = "waiting";
+
   constructor(private activatedRoute: ActivatedRoute,
     private authSvc: AuthService,
     private dataSvc: DataService,
@@ -59,7 +61,8 @@ export class MainPage implements OnInit {
 
   onLoginGoogle() {
     this.authSvc.loginGoogle()
-      .then(() => {
+      .then(res => {
+        this.result = JSON.stringify(res);
         console.log("Google logged");
       })
       .catch(err => {

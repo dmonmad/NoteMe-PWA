@@ -33,9 +33,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     AngularFireStorageModule,
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
-    AngularFireAuthGuardModule,
-    
-
+    AngularFireAuthGuardModule,   
   ],
   providers: [
     StatusBar,

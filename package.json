@@ -79,7 +79,7 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.dmonmad.noteme",
+        "REVERSED_CLIENT_ID": "712062287369-samd0np74vrf86ivv090sgvbce00ejta.apps.googleusercontent.com",
         "WEB_APPLICATION_CLIENT_ID": "712062287369-3n5m5k57ne2ma97fgne2ihpaq9bj4pf2.apps.googleusercontent.com"
       },
       "cordova-plugin-camera": {

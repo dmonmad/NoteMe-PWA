@@ -50,9 +50,10 @@
   [fullscreen]="true">
 
   <!--   <ion-button (click)="createNote()">Try Create</ion-button>  -->
-<ion-button (click)="login()">
+<ion-button (click)="onLoginGoogle()">
 xD
 </ion-button>
+{{result}}
   <div class="pins">
 
     <ion-card *ngFor="let item of notas" (click)="selectNote(item)" long-press (press)="startEditMode(item)"
